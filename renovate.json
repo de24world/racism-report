@@ -1,0 +1,9 @@
+{
+  "extends": ["config:base", ":label(renovate)"],
+  "baseBranches": ["develop"],
+  "packageRules": [
+    {
+      "automergeType": "pr"
+    }
+  ]
+}
