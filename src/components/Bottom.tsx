@@ -4,7 +4,7 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 type Props = {};
 
-function Footer({}: Props) {
+function Bottom({}: Props) {
   return (
     <>
       <Breadcrumb>
@@ -21,4 +21,4 @@ function Footer({}: Props) {
   );
 }
 
-export default Footer;
+export default Bottom;
