@@ -1,8 +1,15 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/globals.scss';
+import type { AppProps } from 'next/app';
+import ResponsiveLayout from '../src/components/Layout/ResponsiveLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <ResponsiveLayout>
+        <Component {...pageProps} />
+      </ResponsiveLayout>
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;
