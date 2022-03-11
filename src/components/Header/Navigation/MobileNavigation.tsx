@@ -14,21 +14,17 @@ import Link from 'next/link';
 
 type Props = {};
 
-function DesktopNavigation({}: Props) {
-  const [current, setCurrent] = useState('');
+function MobileNavigation({}: Props) {
   const { SubMenu } = Menu;
+
+  const [current, setCurrent] = useState('');
 
   const handleClick = () => {
     setCurrent(current);
   };
 
   return (
-    <Menu theme="dark" mode="horizontal" onClick={handleClick} selectedKeys={[current]}>
-      <SubMenu key="SubMenu1" icon={<TranslationOutlined />} title="Language">
-        <Menu.Item key="setting:1">English</Menu.Item>
-        <Menu.Item key="setting:2">Korean</Menu.Item>
-      </SubMenu>
-
+    <Menu style={{ position: 'absolute', left: 0 }} onClick={handleClick} mode="inline">
       <Menu.Item icon={<HomeOutlined />}>
         <Link href="/">
           <a>Home</a>
@@ -79,4 +75,4 @@ function DesktopNavigation({}: Props) {
   );
 }
 
-export default DesktopNavigation;
+export default MobileNavigation;

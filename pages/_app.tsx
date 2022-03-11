@@ -1,6 +1,6 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
-import ResponsiveLayout from '../src/components/Layout/ResponsiveLayout';
+import ResponsiveLayout from '../src/components/ResponsiveLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
