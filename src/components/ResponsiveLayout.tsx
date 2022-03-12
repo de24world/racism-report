@@ -27,7 +27,7 @@ function ResponsiveLayout({ children }: Props) {
       <Layout>
         {isMobile ? <MobileHeader /> : <DesktopHeader />}
 
-        <Content>
+        <Content style={{ padding: '1rem 2rem', marginTop: 64 }}>
           <main>{children}</main>
         </Content>
 

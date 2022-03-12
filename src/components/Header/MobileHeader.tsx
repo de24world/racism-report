@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Button, Drawer, Menu, Dropdown } from 'antd';
 import { MenuOutlined, TranslationOutlined } from '@ant-design/icons';
-import MobileNavigation from './Navigation/MobileNavigation';
+import MobileNavigation from '../Navigation/MobileNavigation';
 
 function MobileHeader() {
   const { Header } = Layout;
