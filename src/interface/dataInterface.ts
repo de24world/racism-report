@@ -9,4 +9,5 @@ export interface IDataProps {
   city: string;
   evidence: string;
   level: number;
+  createdDate?: string;
 }

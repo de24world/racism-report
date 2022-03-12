@@ -1,10 +1,16 @@
-import type { NextPage } from 'next';
+// import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import { Typography, Input, Checkbox } from 'antd';
 import { VideoCameraOutlined } from '@ant-design/icons';
 import VideoList from '../src/components/VideoList';
+import { IDataProps } from '../src/interface/dataInterface';
 
-const Video: NextPage = (data) => {
+interface Props {
+  data: IDataProps[];
+}
+
+const VideoPage = function ({ data }: Props) {
   const reportData = data;
   const { Title, Paragraph, Text, Link } = Typography;
   function onChange(e) {
@@ -14,13 +20,15 @@ const Video: NextPage = (data) => {
   console.log(data, 'data in Video Page');
 
   // serach & filter
-  // const [query, setQuery] = useState('');
-  // const [searchDataKeys, setSearchDataKeys] = useState(['country', 'city']);
-  // const dataKeys = reportData[0] && Object.keys(reportData[0]);
+  const [query, setQuery] = useState('');
+  const [searchDataKeys, setSearchDataKeys] = useState(['country', 'city']);
+  const dataKeys = reportData[0] && Object.keys(reportData[0]);
 
-  // function search(dataValues) {
-  //   return dataValues.filter((dataValue) => searchDataKeys.some((dataKey) => dataValue[dataKey].toString().toLowerCase().indexOf(query.toLowerCase()) > -1));
-  // }
+  function searchData(dataValues: any) {
+    return dataValues.filter((dataValue: any) =>
+      searchDataKeys.some((dataKey: any) => dataValue[dataKey].toString().toLowerCase().indexOf(query.toLowerCase()) > -1),
+    );
+  }
 
   return (
     <>
@@ -35,18 +43,24 @@ const Video: NextPage = (data) => {
       </Title>
       <Paragraph>해당 페이지는 비디오 페이지입니다. 인종차별과 관련한 많은 영상들을 볼 수 있습니다. 또한 비디오를 검색 및 필터할 수 있습니다.</Paragraph>
 
-      <Input placeholder="검색할 값을 입력하세요" />
-      <Checkbox onChange={onChange}>나라</Checkbox>
-      <Checkbox onChange={onChange}>도시</Checkbox>
-      <Checkbox onChange={onChange}>국가코드</Checkbox>
-      <Checkbox onChange={onChange}>날짜</Checkbox>
-      <Checkbox onChange={onChange}>증거</Checkbox>
-      <Checkbox onChange={onChange}>아이디</Checkbox>
-      <Checkbox onChange={onChange}>단계</Checkbox>
-      <Checkbox onChange={onChange}>가해자</Checkbox>
-      <Checkbox onChange={onChange}>피해자</Checkbox>
-      {/* <VideoList data={search(reportData)} */}
-      <VideoList {...data} />
+      <Input type="text" placeholder="검색할 값을 입력하세요" value={query} onChange={(e) => setQuery(e.target.value)} />
+
+      {dataKeys &&
+        dataKeys.map((dataKey, index) => (
+          <div key={index}>
+            <Checkbox
+              checked={searchDataKeys.includes(dataKey)}
+              onChange={(e) => {
+                const checked = searchDataKeys.includes(dataKey);
+                setSearchDataKeys((prev) => (checked ? prev.filter((sc) => sc !== dataKey) : [...prev, dataKey]));
+              }}
+            >
+              {dataKey}
+            </Checkbox>
+          </div>
+        ))}
+
+      <VideoList data={searchData(reportData)} />
     </>
   );
 };
@@ -63,4 +77,4 @@ export async function getServerSideProps({}) {
   };
 }
 
-export default Video;
+export default VideoPage;
