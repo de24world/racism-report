@@ -13,9 +13,6 @@ interface Props {
 const VideoPage = function ({ data }: Props) {
   const reportData = data;
   const { Title, Paragraph, Text, Link } = Typography;
-  function onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-  }
 
   console.log(data, 'data in Video Page');
 
