@@ -15,20 +15,16 @@ import Link from 'next/link';
 type Props = {};
 
 function MobileNavigation({}: Props) {
-  const [current, setCurrent] = useState('');
   const { SubMenu } = Menu;
+
+  const [current, setCurrent] = useState('');
 
   const handleClick = () => {
     setCurrent(current);
   };
 
   return (
-    <Menu onClick={handleClick} mode="inline">
-      <SubMenu key="SubMenu1" icon={<TranslationOutlined />} title="Language">
-        <Menu.Item key="setting:1">English</Menu.Item>
-        <Menu.Item key="setting:2">Korean</Menu.Item>
-      </SubMenu>
-
+    <Menu style={{ position: 'absolute', left: 0 }} onClick={handleClick} mode="inline">
       <Menu.Item icon={<HomeOutlined />}>
         <Link href="/">
           <a>Home</a>

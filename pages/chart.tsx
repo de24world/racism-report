@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 
-const Chart: NextPage = () => {
+const ChartPage: NextPage = () => {
   return <>Chart Page</>;
 };
 
-export default Chart;
+export default ChartPage;

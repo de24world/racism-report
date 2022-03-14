@@ -13,7 +13,7 @@ function Bottom({}: Props) {
         </Breadcrumb.Item>
         <Breadcrumb.Item href="">
           <UserOutlined />
-          <span>Application List</span>
+          <span className="">Application List</span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>Application</Breadcrumb.Item>
       </Breadcrumb>
