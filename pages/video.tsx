@@ -62,7 +62,7 @@ const VideoPage = function ({ data }: Props) {
   );
 };
 
-export async function getServerSideProps({}) {
+export async function getStaticProps({}) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/reportDB.json`);
   const data = await res.json();
 
