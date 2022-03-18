@@ -64,15 +64,15 @@ function DesktopHeader({}: Props) {
         </Menu.Item>
 
         <Menu.Item icon={<KeyOutlined />}>
-          {/* <Link href="/video"> */}
-          <a>Login</a>
-          {/* </Link> */}
+          <Link href="/login">
+            <a>Login</a>
+          </Link>
         </Menu.Item>
 
         <Menu.Item icon={<UserAddOutlined />}>
-          {/* <Link href="/video"> */}
-          <a>Register</a>
-          {/* </Link> */}
+          <Link href="/signup">
+            <a>Register</a>
+          </Link>
         </Menu.Item>
 
         <SubMenu key="SubMenu1" icon={<TranslationOutlined />} title="Language">
