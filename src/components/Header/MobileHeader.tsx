@@ -7,12 +7,12 @@ function MobileHeader() {
   const { Header } = Layout;
   const menu = (
     <Menu theme="dark">
-      <Menu.Item>
+      <Menu.Item key="english">
         <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
           English
         </a>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key="korean">
         <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
           Korean
         </a>

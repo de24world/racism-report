@@ -28,17 +28,17 @@ function DesktopHeader({}: Props) {
   return (
     <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <Menu theme="dark" mode="horizontal" onClick={handleClick} selectedKeys={[current]}>
-        <Menu.Item icon={<HomeOutlined />}>
+        <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link href="/">
             <a>Home</a>
           </Link>
         </Menu.Item>
-        <Menu.Item icon={<OrderedListOutlined />}>
+        <Menu.Item key="list" icon={<OrderedListOutlined />}>
           <Link href="/list">
             <a>List</a>
           </Link>
         </Menu.Item>
-        <Menu.Item icon={<VideoCameraOutlined />}>
+        <Menu.Item key="video" icon={<VideoCameraOutlined />}>
           <Link href="/video">
             <a>Video</a>
           </Link>
@@ -55,7 +55,7 @@ function DesktopHeader({}: Props) {
           </Menu.ItemGroup>
         </SubMenu>
 
-        <Menu.Item key="alipay" icon={<MailOutlined />} title="Contacnt">
+        <Menu.Item key="contact" icon={<MailOutlined />} title="Contacnt">
           <Link href="/contact">
             <a target="_blank" rel="noopener noreferrer">
               Contact
@@ -63,13 +63,13 @@ function DesktopHeader({}: Props) {
           </Link>
         </Menu.Item>
 
-        <Menu.Item icon={<KeyOutlined />}>
+        <Menu.Item key="login" icon={<KeyOutlined />}>
           <Link href="/login">
             <a>Login</a>
           </Link>
         </Menu.Item>
 
-        <Menu.Item icon={<UserAddOutlined />}>
+        <Menu.Item key="register" icon={<UserAddOutlined />}>
           <Link href="/signup">
             <a>Register</a>
           </Link>

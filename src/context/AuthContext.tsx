@@ -1,7 +1,7 @@
 // https://www.youtube.com/watch?v=ZmpO65DhRN0&ab_channel=SairajChouhan
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 const AuthContext = createContext<any>({});
@@ -11,7 +11,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  console.log(user);
+  console.log(user, 'user in AuthContext');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
