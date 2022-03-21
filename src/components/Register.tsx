@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { useAuth } from '../context/AuthContext';
 
 type Props = {};
@@ -11,24 +11,20 @@ const Register = (props: Props) => {
     email: '',
     password: '',
   });
-  const [error, setError] = useState(null);
 
-  const onSignup = async (e: any) => {
-    // e.preventDefault();
-    setError(null);
+  const onSignup = async (values: any) => {
+    // e.preventDefault(values);
     try {
       await signup(data.email, data.password);
-    } catch (err) {
-      // setError(err.message)
-      // if (error.message !== null) {
-      //   this.setState({ errorMessage: error.message });
-      // } else {
-      //   this.setState({ errorMessage: null });
-      // }
+    } catch (err: any) {
       console.log(err, 'err Message onSignup');
+      if (err.code === 'auth/weak-password') {
+        return message.error('password should be at least 6 characters');
+      }
     }
+    // console.log(values, 'values succes in onSignup');
 
-    console.log(data, 'data succes in onSignup');
+    // console.log(data, 'data succes in onSignup');
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -81,18 +77,12 @@ const Register = (props: Props) => {
           />
         </Form.Item>
 
-        {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item> */}
-
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
       </Form>
-      {/* <p>error Message : {data.errorMessage! == null ? <>{data.errorMessage}</> : null}</p> */}
-      {/* <p>error Message : {data.errorMessage}</p> */}
     </>
   );
 };
