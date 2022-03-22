@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { auth } from '../../firebase';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+import { GoogleOutlined } from '@ant-design/icons';
+import { useAuth } from '../context/AuthContext';
 
 type Props = {};
 
 function Login({}: Props) {
+  const { googleLogin, googleLogout } = useAuth();
   // console.log(auth, 'auth with Firebase');
   //   const userData = createUserWithEmailAndPassword(auth, email, password)
   //     .then((userCredential) => {
@@ -47,9 +51,17 @@ function Login({}: Props) {
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or
+          <Button>
+            <Link href="/signup">
+              <a>Register</a>
+            </Link>
+          </Button>
         </Form.Item>
       </Form>
+      <Button type="primary" icon={<GoogleOutlined />} onClick={googleLogin}>
+        Google
+      </Button>
     </>
   );
 }

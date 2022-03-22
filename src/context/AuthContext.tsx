@@ -1,7 +1,7 @@
 // https://www.youtube.com/watch?v=ZmpO65DhRN0&ab_channel=SairajChouhan
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider } from 'firebase/auth';
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase';
 
 const AuthContext = createContext<any>({});
@@ -43,5 +43,34 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     await signOut(auth);
   };
 
-  return <AuthContext.Provider value={{ user, login, signup, logout }}>{loading ? null : children}</AuthContext.Provider>;
+  const provider = new GoogleAuthProvider();
+
+  const googleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential?.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log({ credential, token, user });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log({ errorCode, errorMessage, email, credential });
+      });
+  };
+
+  const googleLogout = () => {
+    auth.signOut();
+    console.log('logout');
+  };
+
+  return <AuthContext.Provider value={{ user, login, signup, logout, googleLogin, googleLogout }}>{loading ? null : children}</AuthContext.Provider>;
 };
