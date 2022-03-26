@@ -48,7 +48,7 @@ function MobileHeader() {
       </Header>
 
       <Drawer visible={isVisible} onClose={closeDrawer} placement="left" width="80%" title="My Drawer">
-        <MobileNavigation />
+        <MobileNavigation closeDrawer={closeDrawer} />
       </Drawer>
     </>
   );

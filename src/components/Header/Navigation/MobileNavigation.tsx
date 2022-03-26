@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
 import {
-  TranslationOutlined,
   HomeOutlined,
   VideoCameraOutlined,
   OrderedListOutlined,
   BarChartOutlined,
   MailOutlined,
-  KeyOutlined,
   UserAddOutlined,
+  LoginOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
 
-type Props = {};
+interface MobileNavigationProps {
+  closeDrawer: any;
+}
 
-function MobileNavigation({}: Props) {
+function MobileNavigation({ closeDrawer }: MobileNavigationProps) {
   const { SubMenu } = Menu;
 
   const [current, setCurrent] = useState('');
 
   const handleClick = () => {
     setCurrent(current);
+    closeDrawer();
   };
 
   return (
@@ -60,10 +63,14 @@ function MobileNavigation({}: Props) {
         </Link>
       </Menu.Item>
 
-      <Menu.Item key="login" icon={<KeyOutlined />}>
+      <Menu.Item key="login" icon={<LoginOutlined />}>
         <Link href="/login">
           <a>Login</a>
         </Link>
+      </Menu.Item>
+
+      <Menu.Item key="Logout" icon={<LogoutOutlined />}>
+        Logout
       </Menu.Item>
 
       <Menu.Item key="register" icon={<UserAddOutlined />}>

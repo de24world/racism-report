@@ -7,8 +7,9 @@ import {
   OrderedListOutlined,
   BarChartOutlined,
   MailOutlined,
-  KeyOutlined,
   UserAddOutlined,
+  LoginOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { Layout } from 'antd';
@@ -63,10 +64,14 @@ function DesktopHeader({}: Props) {
           </Link>
         </Menu.Item>
 
-        <Menu.Item key="login" icon={<KeyOutlined />}>
+        <Menu.Item key="login" icon={<LoginOutlined />}>
           <Link href="/login">
             <a>Login</a>
           </Link>
+        </Menu.Item>
+
+        <Menu.Item key="Logout" icon={<LogoutOutlined />}>
+          Logout
         </Menu.Item>
 
         <Menu.Item key="register" icon={<UserAddOutlined />}>
