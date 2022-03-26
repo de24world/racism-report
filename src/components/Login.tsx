@@ -6,11 +6,17 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { GoogleOutlined } from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 function Login({}: Props) {
-  const { googleLogin, googleLogout } = useAuth();
+  const router = useRouter();
+  const { user, login, googleLogin, googleLogout } = useAuth();
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
   // console.log(auth, 'auth with Firebase');
   //   const userData = createUserWithEmailAndPassword(auth, email, password)
   //     .then((userCredential) => {
@@ -24,18 +30,48 @@ function Login({}: Props) {
   //       // ..
   //     });
 
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+  const onLogin = async (e: any) => {
+    // e.preventDefault();
+
+    console.log(user);
+    try {
+      await login(data.email, data.password);
+      router.push('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <>
-      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
-        <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onLogin}>
+        <Form.Item name="email" rules={[{ required: true, message: 'Please input your Email!' }]}>
+          <Input
+            onChange={(e: any) =>
+              setData({
+                ...data,
+                email: e.target.value,
+              })
+            }
+            value={data.email}
+            type="email"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Email"
+          />
         </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
-          <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
+          <Input
+            onChange={(e: any) =>
+              setData({
+                ...data,
+                password: e.target.value,
+              })
+            }
+            value={data.password}
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>

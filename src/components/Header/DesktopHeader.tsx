@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu } from 'antd';
+import { Menu, Button } from 'antd';
 import {
   TranslationOutlined,
   HomeOutlined,
@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { Layout } from 'antd';
+import { useAuth } from '../../context/AuthContext';
 
 type Props = {};
 
@@ -21,6 +22,7 @@ function DesktopHeader({}: Props) {
   const { SubMenu } = Menu;
 
   const [current, setCurrent] = useState('');
+  const { user, logout } = useAuth();
 
   const handleClick = () => {
     setCurrent(current);
@@ -64,21 +66,28 @@ function DesktopHeader({}: Props) {
           </Link>
         </Menu.Item>
 
-        <Menu.Item key="login" icon={<LoginOutlined />}>
-          <Link href="/login">
-            <a>Login</a>
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="Logout" icon={<LogoutOutlined />}>
-          Logout
-        </Menu.Item>
-
-        <Menu.Item key="register" icon={<UserAddOutlined />}>
-          <Link href="/signup">
-            <a>Register</a>
-          </Link>
-        </Menu.Item>
+        {user ? (
+          <>
+            <Menu.Item key="Logout" icon={<LogoutOutlined />}>
+              <Button type="text" onClick={logout}>
+                Logout
+              </Button>
+            </Menu.Item>
+          </>
+        ) : (
+          <>
+            <Menu.Item key="login" icon={<LoginOutlined />}>
+              <Link href="/login">
+                <a>Login</a>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="register" icon={<UserAddOutlined />}>
+              <Link href="/signup">
+                <a>Register</a>
+              </Link>
+            </Menu.Item>
+          </>
+        )}
 
         <SubMenu key="SubMenu1" icon={<TranslationOutlined />} title="Language">
           <Menu.Item key="english">English</Menu.Item>

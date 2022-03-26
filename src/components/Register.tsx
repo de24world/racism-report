@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, message } from 'antd';
+import { Form, Input, Button, Modal, message } from 'antd';
 import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const Register = (props: Props) => {
+  const router = useRouter();
   const { user, signup } = useAuth();
   // console.log(user, 'user in Register Component');
   const [data, setData] = useState({
@@ -12,10 +14,20 @@ const Register = (props: Props) => {
     password: '',
   });
 
+  const openModal = () => {
+    Modal.success({
+      content: 'success Signup',
+    });
+  };
+
   const onSignup = async (values: any) => {
     // e.preventDefault(values);
     try {
       await signup(data.email, data.password);
+      openModal();
+      router.push({
+        pathname: '/login',
+      });
     } catch (err: any) {
       console.log(err, 'err Message onSignup');
       if (err.code === 'auth/weak-password') {
