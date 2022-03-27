@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu } from 'antd';
+import { Menu, Button } from 'antd';
 import {
   HomeOutlined,
   VideoCameraOutlined,
@@ -11,6 +11,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
+import { useAuth } from '../../../context/AuthContext';
 
 interface MobileNavigationProps {
   closeDrawer: any;
@@ -18,6 +19,7 @@ interface MobileNavigationProps {
 
 function MobileNavigation({ closeDrawer }: MobileNavigationProps) {
   const { SubMenu } = Menu;
+  const { user, logout } = useAuth();
 
   const [current, setCurrent] = useState('');
 
@@ -63,21 +65,28 @@ function MobileNavigation({ closeDrawer }: MobileNavigationProps) {
         </Link>
       </Menu.Item>
 
-      <Menu.Item key="login" icon={<LoginOutlined />}>
-        <Link href="/login">
-          <a>Login</a>
-        </Link>
-      </Menu.Item>
-
-      <Menu.Item key="Logout" icon={<LogoutOutlined />}>
-        Logout
-      </Menu.Item>
-
-      <Menu.Item key="register" icon={<UserAddOutlined />}>
-        <Link href="/signup">
-          <a>Register</a>
-        </Link>
-      </Menu.Item>
+      {user ? (
+        <>
+          <Menu.Item key="Logout" icon={<LogoutOutlined />}>
+            <Button type="text" onClick={logout}>
+              Logout
+            </Button>
+          </Menu.Item>
+        </>
+      ) : (
+        <>
+          <Menu.Item key="login" icon={<LoginOutlined />}>
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="register" icon={<UserAddOutlined />}>
+            <Link href="/signup">
+              <a>Register</a>
+            </Link>
+          </Menu.Item>
+        </>
+      )}
     </Menu>
   );
 }
