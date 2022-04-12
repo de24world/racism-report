@@ -23,11 +23,13 @@ function VideoList({ data }: Props): JSX.Element {
 
   return (
     <>
-      {data.map((video) => (
-        <div className="py-1.5" key={video.id}>
-          <ReactPlayer url={video.evidence} width="100%" height="100%" />
-        </div>
-      ))}
+      <ul>
+        {data.map((video) => (
+          <li className="py-1.5" key={video.id}>
+            <ReactPlayer url={video.evidence} width="100%" height="100%" />
+          </li>
+        ))}
+      </ul>
       {/* <GridList className={classes.gridList} cols={matchesLg ? 1 : 4}> */}
       {/* {data.map((video) => (
           <GridListTile key={video.id} className={classes.gridListTile}>
