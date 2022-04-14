@@ -23,7 +23,7 @@ function VideoList({ data }: Props): JSX.Element {
 
   return (
     <>
-      <ul className="grid grid-cols-6">
+      <ul className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         {data.map((video) => (
           <li className="p-1.5" key={video.id}>
             <ReactPlayer url={video.evidence} width="100%" height="100%" />
