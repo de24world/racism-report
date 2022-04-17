@@ -42,20 +42,22 @@ const VideoPage = function ({ data }: Props) {
 
       <Input type="text" placeholder="검색할 값을 입력하세요" value={query} onChange={(e) => setQuery(e.target.value)} />
 
-      {dataKeys &&
-        dataKeys.map((dataKey, index) => (
-          <div key={index}>
-            <Checkbox
-              checked={searchDataKeys.includes(dataKey)}
-              onChange={(e) => {
-                const checked = searchDataKeys.includes(dataKey);
-                setSearchDataKeys((prev) => (checked ? prev.filter((sc) => sc !== dataKey) : [...prev, dataKey]));
-              }}
-            >
-              {dataKey}
-            </Checkbox>
-          </div>
-        ))}
+      <div className="md:flex flex-row">
+        {dataKeys &&
+          dataKeys.map((dataKey, index) => (
+            <div key={index}>
+              <Checkbox
+                checked={searchDataKeys.includes(dataKey)}
+                onChange={(e) => {
+                  const checked = searchDataKeys.includes(dataKey);
+                  setSearchDataKeys((prev) => (checked ? prev.filter((sc) => sc !== dataKey) : [...prev, dataKey]));
+                }}
+              >
+                <Title level={5}>{dataKey}</Title>
+              </Checkbox>
+            </div>
+          ))}
+      </div>
 
       <VideoList data={searchData(reportData)} />
     </>
