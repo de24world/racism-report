@@ -10,6 +10,7 @@ import {
   UserAddOutlined,
   LoginOutlined,
   LogoutOutlined,
+  PlusSquareOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { Layout } from 'antd';
@@ -72,6 +73,11 @@ function DesktopHeader({}: Props) {
               <Button type="text" onClick={logout}>
                 Logout
               </Button>
+            </Menu.Item>
+            <Menu.Item key="Create" icon={<PlusSquareOutlined />}>
+              <Link href="/create">
+                <a>Create</a>
+              </Link>
             </Menu.Item>
           </>
         ) : (
