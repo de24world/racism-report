@@ -3,12 +3,14 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { useRouter } from 'next/router';
 
 const AuthContext = createContext<any>({});
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   console.log(user, 'user in AuthContext');
@@ -54,6 +56,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         // The signed-in user info.
         const user = result.user;
         console.log({ credential, token, user });
+        router.push('/');
       })
       .catch((error) => {
         // Handle Errors here.
