@@ -1,6 +1,6 @@
 // import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { Typography, Input, Checkbox } from 'antd';
 import { VideoCameraOutlined } from '@ant-design/icons';
 import VideoList from '../src/components/VideoList';
@@ -45,7 +45,7 @@ const VideoPage = function ({ data }: Props) {
       <div className="md:flex flex-row">
         {dataKeys &&
           dataKeys.map((dataKey, index) => (
-            <div key={index}>
+            <Fragment key={index}>
               <Checkbox
                 checked={searchDataKeys.includes(dataKey)}
                 onChange={(e) => {
@@ -55,7 +55,7 @@ const VideoPage = function ({ data }: Props) {
               >
                 <Title level={5}>{dataKey}</Title>
               </Checkbox>
-            </div>
+            </Fragment>
           ))}
       </div>
 
