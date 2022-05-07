@@ -9,17 +9,17 @@ const LoginPage: NextPage = () => {
   const router = useRouter();
   const { user } = useAuth();
 
-  useEffect(() => {
-    if (user) {
-      alert('already loggedin');
-      router.push('/');
-    }
-  }, [router, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     alert('already loggedin');
+  //     router.push('/');
+  //   }
+  // }, [router, user]);
 
   return (
     <>
       Login Page
-      {!user && <Login />}
+      {user ? <h2>{user.email} already logged in</h2> : <Login />}
     </>
   );
 };

@@ -18,4 +18,16 @@ const Create: NextPage = () => {
   return <>Create Page</>;
 };
 
+export async function getStaticProps({}) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/reportDB.json`);
+  const data = await res.json();
+
+  return {
+    props: {
+      data,
+      // ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
+}
+
 export default Create;
