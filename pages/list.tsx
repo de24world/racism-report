@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import { db } from '../firebase';
+import { realtimeDB } from '../firebase';
 import TableList from '../src/components/TableList';
-import { collection, getDocs } from 'firebase/firestore';
+import { ref, child, get } from 'firebase/database';
 
 interface Props {
   database: any;
@@ -17,19 +17,24 @@ const ListPage = ({ database }: Props) => {
   );
 };
 
+// https://firebase.google.com/docs/database/web/read-and-write#read_data
+// https://ashleemboyer.com/blog/nextjs-firebase-blog-03
 export async function getStaticProps({}) {
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/reportDB.json`);
-  // const data = await res.json();
+  const data = await res.json();
+  // const dbRef = ref(realtimeDB);
+  // get(child(dbRef, `reportDB`))
+  //   .then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //       console.log(snapshot.val(), 'snapshot.val() in realtimeDB!!!');
+  //     } else {
+  //       console.log('No data available in realTimeDB');
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
 
-  // const data = await db;
-
-  const querySnapshot = await getDocs(collection(db, 'reports'));
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-  });
-
-  const database = JSON.stringify(querySnapshot);
-
+  // const database = JSON.stringify(dbRef);
   return {
     props: {
       database,
