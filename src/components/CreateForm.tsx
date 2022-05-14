@@ -30,15 +30,18 @@ const CreateForm = (props: Props) => {
 
   return (
     <>
-      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-        {/* <input value="usermail" readOnly>
-          test1234@gmail.com
-        </input> */}
-        {/* <Form.Item name="email" label="email">
-          <Select defaultValue="lucy" open={false}>
-            <Select.Option value="lucy">Lucy</Select.Option>
-          </Select>
-        </Form.Item> */}
+      <Form
+        {...layout}
+        name="nest-messages"
+        initialValues={{
+          useremail: 'test@naver.com',
+        }}
+        onFinish={onFinish}
+        validateMessages={validateMessages}
+      >
+        <Form.Item label="UserEmail" name="useremail">
+          TestUserEmail
+        </Form.Item>
         <Form.Item name="offender" label="offender" rules={[{ required: true, message: 'Please select offender!' }]}>
           <Cascader
             options={[
@@ -185,17 +188,17 @@ const CreateForm = (props: Props) => {
         >
           <Input placeholder="input placeholder" />
         </Form.Item>
-        <Form.Item name="날짜" label="날짜" {...dataConfig}>
+        <Form.Item name="date" label="날짜" {...dataConfig}>
           <DatePicker picker="month" />
         </Form.Item>
-        <Form.Item label="level" name="level">
+        <Form.Item label="level" name="level" rules={[{ required: true, message: 'Please select level!' }]}>
           <Radio.Group>
             <Radio.Button value="first">1단계:언어</Radio.Button>
             <Radio.Button value="second">2단계:신체적</Radio.Button>
             <Radio.Button value="third">3단계:강력범죄</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item name="설명" label="Description">
+        <Form.Item name="description" label="설명">
           <Input />
         </Form.Item>
         업로드 날짜
