@@ -195,7 +195,10 @@ const CreateForm = (props: Props) => {
             <Radio.Button value="third">3단계:강력범죄</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        Uplodae Data
+        <Form.Item name="설명" label="Description">
+          <Input />
+        </Form.Item>
+        업로드 날짜
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
