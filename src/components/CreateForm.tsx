@@ -3,6 +3,8 @@ import { Form, Input, Button, Radio, Select, Cascader, DatePicker, InputNumber, 
 type Props = {};
 
 const CreateForm = (props: Props) => {
+  const nowTime = new Date();
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -35,6 +37,7 @@ const CreateForm = (props: Props) => {
         name="nest-messages"
         initialValues={{
           useremail: 'test@naver.com',
+          submitTime: nowTime,
         }}
         onFinish={onFinish}
         validateMessages={validateMessages}
@@ -188,7 +191,7 @@ const CreateForm = (props: Props) => {
         >
           <Input placeholder="input placeholder" />
         </Form.Item>
-        <Form.Item name="date" label="날짜" {...dataConfig}>
+        <Form.Item name="occurDate" label="날짜" {...dataConfig}>
           <DatePicker picker="month" />
         </Form.Item>
         <Form.Item label="level" name="level" rules={[{ required: true, message: 'Please select level!' }]}>
@@ -201,7 +204,10 @@ const CreateForm = (props: Props) => {
         <Form.Item name="description" label="설명">
           <Input />
         </Form.Item>
-        업로드 날짜
+        <Form.Item label="제출냘짜" name="submitTime" style={{ display: 'none' }}>
+          제출날짜 = submitTime
+        </Form.Item>
+        추가작업할 것: 인종 Array가 아닌 object로 변환 / 캡쳐?
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
