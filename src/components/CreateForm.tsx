@@ -46,124 +46,24 @@ const CreateForm = (props: Props) => {
           TestUserEmail
         </Form.Item>
         <Form.Item name="offender" label="offender" rules={[{ required: true, message: 'Please select offender!' }]}>
-          <Cascader
-            options={[
-              {
-                value: 'Black',
-                label: 'Black',
-                children: [
-                  {
-                    value: 'Mann',
-                    label: 'Mann',
-                  },
-                  {
-                    value: 'Women',
-                    label: 'Women',
-                  },
-                  {
-                    value: 'LGBT',
-                    label: 'LGBT',
-                  },
-                ],
-              },
-              {
-                value: 'White',
-                label: 'White',
-                children: [
-                  {
-                    value: 'Mann',
-                    label: 'Mann',
-                  },
-                  {
-                    value: 'Women',
-                    label: 'Women',
-                  },
-                  {
-                    value: 'LGBT',
-                    label: 'LGBT',
-                  },
-                ],
-              },
-              {
-                value: 'Yellow',
-                label: 'Yellow',
-                children: [
-                  {
-                    value: 'Mann',
-                    label: 'Mann',
-                  },
-                  {
-                    value: 'Women',
-                    label: 'Women',
-                  },
-                  {
-                    value: 'LGBT',
-                    label: 'LGBT',
-                  },
-                ],
-              },
-            ]}
-          />
+          <Select showSearch placeholder="Select to Offender">
+            <Select.Option value="Black Mann">Black Mann</Select.Option>
+            <Select.Option value="Black Women">Black Women</Select.Option>
+            <Select.Option value="White Mann">White Mann</Select.Option>
+            <Select.Option value="White Women">White Women</Select.Option>
+            <Select.Option value="Yellow Mann">Yellow Mann</Select.Option>
+            <Select.Option value="Yellow Women">Yellow Women</Select.Option>
+          </Select>
         </Form.Item>
-        <Form.Item name="victim" label="victim" rules={[{ required: true, message: 'Please select offender!' }]}>
-          <Cascader
-            options={[
-              {
-                value: 'Black',
-                label: 'Black',
-                children: [
-                  {
-                    value: 'Mann',
-                    label: 'Mann',
-                  },
-                  {
-                    value: 'Women',
-                    label: 'Women',
-                  },
-                  {
-                    value: 'LGBT',
-                    label: 'LGBT',
-                  },
-                ],
-              },
-              {
-                value: 'White',
-                label: 'White',
-                children: [
-                  {
-                    value: 'Mann',
-                    label: 'Mann',
-                  },
-                  {
-                    value: 'Women',
-                    label: 'Women',
-                  },
-                  {
-                    value: 'LGBT',
-                    label: 'LGBT',
-                  },
-                ],
-              },
-              {
-                value: 'Yellow',
-                label: 'Yellow',
-                children: [
-                  {
-                    value: 'Mann',
-                    label: 'Mann',
-                  },
-                  {
-                    value: 'Women',
-                    label: 'Women',
-                  },
-                  {
-                    value: 'LGBT',
-                    label: 'LGBT',
-                  },
-                ],
-              },
-            ]}
-          />
+        <Form.Item name="victim" label="Victim" rules={[{ required: true, message: 'Please select Victim!' }]}>
+          <Select showSearch placeholder="Select to Victim">
+            <Select.Option value="Black Mann">Black Mann</Select.Option>
+            <Select.Option value="Black Women">Black Women</Select.Option>
+            <Select.Option value="White Mann">White Mann</Select.Option>
+            <Select.Option value="White Women">White Women</Select.Option>
+            <Select.Option value="Yellow Mann">Yellow Mann</Select.Option>
+            <Select.Option value="Yellow Women">Yellow Women</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item name="place" label="place" hasFeedback rules={[{ required: true, message: 'Please select your country!' }]}>
           <Select placeholder="please select place">
