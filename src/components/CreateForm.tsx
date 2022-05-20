@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Radio, Select, Cascader, DatePicker, InputNumber, TreeSelect, Switch } from 'antd';
-type Props = {};
+import React from 'react';
+import { getDatabase, ref, set, push } from 'firebase/database';
 
-const CreateForm = (props: Props) => {
+import { Form, Input, Button, Radio, Select, DatePicker, Alert } from 'antd';
+import { IUser } from '../interface/dataInterface';
+type Props = {
+  user: IUser;
+};
+
+const CreateForm = ({ user }: Props) => {
   const nowTime = new Date();
 
   const layout = {
@@ -26,24 +31,58 @@ const CreateForm = (props: Props) => {
     rules: [{ type: 'object' as const, required: true, message: 'Please select time!' }],
   };
 
-  const onFinish = (values: any) => {
+  const [form] = Form.useForm();
+
+  const onFinish = (values: {
+    useremail: any;
+    offender: any;
+    victim: any;
+    place: any;
+    evidence: any;
+    occurDate: { _d: any };
+    level: any;
+    description: any;
+    submitTime: any;
+  }): any => {
+    // e.preventDefault();
+
+    // const db = getDatabase();
+    // const postListRef = ref(db, 'reportDB/');
+    // const newPostRef = push(postListRef);
+    // set(newPostRef, {
+    //   useremail: values.useremail,
+    //   offender: values.offender,
+    //   victim: values.victim,
+    //   place: values.place,
+    //   evidence: values.evidence,
+    //   // occurDate: values.occurDate._d,
+    //   level: values.level,
+    //   description: values.description,
+    //   submitTime: values.submitTime,
+    // });
     console.log(values, 'values?');
+    console.log(values.occurDate._d, 'occurDate?');
+    console.log(values.submitTime, 'submitTime?');
+    <Alert message="Success Submit" type="success" showIcon />;
+
+    form.resetFields();
   };
 
   return (
     <>
       <Form
+        form={form}
         {...layout}
         name="nest-messages"
         initialValues={{
-          useremail: 'test@naver.com',
+          useremail: user.email,
           submitTime: nowTime,
         }}
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item label="UserEmail" name="useremail">
-          TestUserEmail
+        <Form.Item label="User Email" name="useremail">
+          {user.email}
         </Form.Item>
         <Form.Item name="offender" label="offender" rules={[{ required: true, message: 'Please select offender!' }]}>
           <Select showSearch placeholder="Select to Offender">
@@ -96,9 +135,9 @@ const CreateForm = (props: Props) => {
         </Form.Item>
         <Form.Item label="level" name="level" rules={[{ required: true, message: 'Please select level!' }]}>
           <Radio.Group>
-            <Radio.Button value="first">1단계:언어</Radio.Button>
-            <Radio.Button value="second">2단계:신체적</Radio.Button>
-            <Radio.Button value="third">3단계:강력범죄</Radio.Button>
+            <Radio.Button value="1">1단계:언어</Radio.Button>
+            <Radio.Button value="2">2단계:신체적</Radio.Button>
+            <Radio.Button value="3">3단계:강력범죄</Radio.Button>
           </Radio.Group>
         </Form.Item>
         <Form.Item name="description" label="설명">
@@ -107,7 +146,7 @@ const CreateForm = (props: Props) => {
         <Form.Item label="제출냘짜" name="submitTime" style={{ display: 'none' }}>
           제출날짜 = submitTime
         </Form.Item>
-        추가작업할 것: 인종 Array가 아닌 object로 변환 / 캡쳐?
+        추가작업할 것: 날짜 create가 안됨/ 중복 제춤 안되게 해야함 / 캡쳐?
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
