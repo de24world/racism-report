@@ -1,15 +1,13 @@
 import React from 'react';
 import { getDatabase, ref, set, push } from 'firebase/database';
 
-import { Form, Input, Button, Radio, Select, DatePicker, Alert } from 'antd';
+import { Form, Input, Button, Radio, Select, DatePicker, message } from 'antd';
 import { IUser } from '../interface/dataInterface';
 type Props = {
   user: IUser;
 };
 
 const CreateForm = ({ user }: Props) => {
-  const nowTime = new Date();
-
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -46,25 +44,25 @@ const CreateForm = ({ user }: Props) => {
   }): any => {
     // e.preventDefault();
 
-    // const db = getDatabase();
-    // const postListRef = ref(db, 'reportDB/');
-    // const newPostRef = push(postListRef);
-    // set(newPostRef, {
-    //   useremail: values.useremail,
-    //   offender: values.offender,
-    //   victim: values.victim,
-    //   place: values.place,
-    //   evidence: values.evidence,
-    //   // occurDate: values.occurDate._d,
-    //   level: values.level,
-    //   description: values.description,
-    //   submitTime: values.submitTime,
-    // });
+    const db = getDatabase();
+    const postListRef = ref(db, 'reportDB');
+    const newPostRef = push(postListRef);
+    set(newPostRef, {
+      useremail: values.useremail,
+      offender: values.offender,
+      victim: values.victim,
+      place: values.place,
+      evidence: values.evidence,
+      // occurDate: values.occurDate._d,
+      level: values.level,
+      description: values.description || {},
+      submitTime: values.submitTime,
+    });
     console.log(values, 'values?');
     console.log(values.occurDate._d, 'occurDate?');
     console.log(values.submitTime, 'submitTime?');
-    <Alert message="Success Submit" type="success" showIcon />;
 
+    message.success('Submit Success');
     form.resetFields();
   };
 
@@ -76,7 +74,7 @@ const CreateForm = ({ user }: Props) => {
         name="nest-messages"
         initialValues={{
           useremail: user.email,
-          submitTime: nowTime,
+          submitTime: Date.now(),
         }}
         onFinish={onFinish}
         validateMessages={validateMessages}
@@ -144,9 +142,9 @@ const CreateForm = ({ user }: Props) => {
           <Input />
         </Form.Item>
         <Form.Item label="제출냘짜" name="submitTime" style={{ display: 'none' }}>
-          제출날짜 = submitTime
+          제출날짜 = submitTime / 안보임
         </Form.Item>
-        추가작업할 것: 날짜 create가 안됨/ 중복 제춤 안되게 해야함 / 캡쳐?
+        추가작업할 것: occurDate 타입 전환 / 캡쳐?
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
