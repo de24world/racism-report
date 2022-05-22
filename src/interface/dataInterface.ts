@@ -14,7 +14,7 @@ export interface IDataProps {
   level: number;
   createdDate?: string;
   description?: string;
-  submitTime: string;
+  submitTime: number;
 }
 
 export interface IUser {
