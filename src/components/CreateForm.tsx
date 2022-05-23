@@ -1,5 +1,8 @@
 import React from 'react';
+import moment from 'moment';
+
 import { getDatabase, ref, set, push } from 'firebase/database';
+import { IDataProps } from '../interface/dataInterface';
 
 import { Form, Input, Button, Radio, Select, DatePicker, message } from 'antd';
 import { IUser } from '../interface/dataInterface';
@@ -8,12 +11,13 @@ type Props = {
 };
 
 const CreateForm = ({ user }: Props) => {
+  const [form] = Form.useForm();
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
 
-  /* eslint-disable no-template-curly-in-string */
   const validateMessages = {
     required: '${label} is required!',
     types: {
@@ -29,19 +33,7 @@ const CreateForm = ({ user }: Props) => {
     rules: [{ type: 'object' as const, required: true, message: 'Please select time!' }],
   };
 
-  const [form] = Form.useForm();
-
-  const onFinish = (values: {
-    useremail: any;
-    offender: any;
-    victim: any;
-    place: any;
-    evidence: any;
-    occurDate: { _d: any };
-    level: any;
-    description: any;
-    submitTime: any;
-  }): any => {
+  const onFinish = (values: IDataProps) => {
     // e.preventDefault();
 
     const db = getDatabase();
@@ -53,14 +45,13 @@ const CreateForm = ({ user }: Props) => {
       victim: values.victim,
       place: values.place,
       evidence: values.evidence,
-      // occurDate: values.occurDate._d,
+      occurDate: moment(values.occurDate).format('YYYY-MM'),
       level: values.level,
-      description: values.description || {},
+      description: values.description || null,
       submitTime: values.submitTime,
     });
-    console.log(values, 'values?');
-    console.log(values.occurDate._d, 'occurDate?');
-    console.log(values.submitTime, 'submitTime?');
+
+    // console.log(moment(values.occurDate).format('YYYY-MM'), 'values.occurDate');
 
     message.success('Submit Success');
     form.resetFields();
@@ -74,7 +65,7 @@ const CreateForm = ({ user }: Props) => {
         name="nest-messages"
         initialValues={{
           useremail: user.email,
-          submitTime: Date.now(),
+          submitTime: Date(),
         }}
         onFinish={onFinish}
         validateMessages={validateMessages}
@@ -130,6 +121,7 @@ const CreateForm = ({ user }: Props) => {
         </Form.Item>
         <Form.Item name="occurDate" label="날짜" {...dataConfig}>
           <DatePicker picker="month" />
+          {/* var unixTimestamp = moment('2012.08.10', 'YYYY.MM.DD').unix(); */}
         </Form.Item>
         <Form.Item label="level" name="level" rules={[{ required: true, message: 'Please select level!' }]}>
           <Radio.Group>
@@ -144,7 +136,7 @@ const CreateForm = ({ user }: Props) => {
         <Form.Item label="제출냘짜" name="submitTime" style={{ display: 'none' }}>
           제출날짜 = submitTime / 안보임
         </Form.Item>
-        추가작업할 것: occurDate 타입 전환 / 캡쳐?
+        추가작업할 것: 미래시간은 occurDate에서 제외 / 캡쳐?
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
