@@ -1,8 +1,8 @@
 import React from 'react';
-import moment from 'moment';
+import moment, { now } from 'moment';
 
 import { getDatabase, ref, set, push } from 'firebase/database';
-import { IDataProps } from '../interface/dataInterface';
+import { IDataValue } from '../interface/dataInterface';
 
 import { Form, Input, Button, Radio, Select, DatePicker, message } from 'antd';
 import { IUser } from '../interface/dataInterface';
@@ -33,13 +33,13 @@ const CreateForm = ({ user }: Props) => {
     rules: [{ type: 'object' as const, required: true, message: 'Please select time!' }],
   };
 
-  const onFinish = (values: IDataProps) => {
+  const onFinish = (values: IDataValue) => {
     // e.preventDefault();
 
     const db = getDatabase();
-    const postListRef = ref(db, 'reportDB');
-    const newPostRef = push(postListRef);
-    set(newPostRef, {
+    const postListRef = ref(db, `reportDB/${Date.now()}`);
+    // const newPostRef = push(postListRef);
+    set(postListRef, {
       useremail: values.useremail,
       offender: values.offender,
       victim: values.victim,
@@ -120,7 +120,12 @@ const CreateForm = ({ user }: Props) => {
           <Input placeholder="input placeholder" />
         </Form.Item>
         <Form.Item name="occurDate" label="날짜" {...dataConfig}>
-          <DatePicker picker="month" />
+          <DatePicker
+            picker="month"
+            disabledDate={(current) => {
+              return moment() <= current;
+            }}
+          />
           {/* var unixTimestamp = moment('2012.08.10', 'YYYY.MM.DD').unix(); */}
         </Form.Item>
         <Form.Item label="level" name="level" rules={[{ required: true, message: 'Please select level!' }]}>
@@ -136,7 +141,7 @@ const CreateForm = ({ user }: Props) => {
         <Form.Item label="제출냘짜" name="submitTime" style={{ display: 'none' }}>
           제출날짜 = submitTime / 안보임
         </Form.Item>
-        추가작업할 것: 미래시간은 occurDate에서 제외 / 캡쳐?
+        추가작업할 것: place (온라인 포함?) 리스트 만들기 enum?? / item name 에러/ 캡쳐?
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
