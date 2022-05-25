@@ -6,6 +6,8 @@ import { IDataValue } from '../interface/dataInterface';
 
 import { Form, Input, Button, Radio, Select, DatePicker, message } from 'antd';
 import { IUser } from '../interface/dataInterface';
+import { Countries } from '../../shared/model/country';
+import ReactCountryFlag from 'react-country-flag';
 type Props = {
   user: IUser;
 };
@@ -93,10 +95,31 @@ const CreateForm = ({ user }: Props) => {
             <Select.Option value="Yellow Women">Yellow Women</Select.Option>
           </Select>
         </Form.Item>
+        *만약 온라인이면 가해자 국가로 선택하세요
         <Form.Item name="place" label="place" hasFeedback rules={[{ required: true, message: 'Please select your country!' }]}>
-          <Select placeholder="please select place">
-            <Select.Option value="USA">미국</Select.Option>
-            <Select.Option value="Online?">온라인</Select.Option>
+          <Select
+            // showSearch
+            // optionFilterProp="children"
+            // filterOption={(input, option) => option.children.includes(input)}
+            // filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
+            placeholder="please select place"
+          >
+            {Countries.map((item, countryIndex) => (
+              <Select.Option key={countryIndex} value={item.name}>
+                <ReactCountryFlag
+                  countryCode={item.code}
+                  svg
+                  cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
+                  cdnSuffix="svg"
+                  title={item.name}
+                  // style={{
+                  //   width: '2em',
+                  //   height: '2em',
+                  // }}
+                />
+                {item.name}
+              </Select.Option>
+            ))}
           </Select>
         </Form.Item>
         {/* AutoComplete Update */}
@@ -141,7 +164,7 @@ const CreateForm = ({ user }: Props) => {
         <Form.Item label="제출냘짜" name="submitTime" style={{ display: 'none' }}>
           제출날짜 = submitTime / 안보임
         </Form.Item>
-        추가작업할 것: place (온라인 포함?) 리스트 만들기 enum?? / item name 에러/ 캡쳐?
+        추가작업할 것: place 소문자 검색가능 / icon표시로 설명하기 / item name 에러/ 캡쳐?
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             Submit
