@@ -19,13 +19,15 @@ const VideoPage = function ({ data }: Props) {
   // serach & filter
   const [query, setQuery] = useState('');
   const [searchDataKeys, setSearchDataKeys] = useState(['country', 'city']);
-  const dataKeys = reportData[0] && Object.keys(reportData[0]);
+  // const dataKeys = reportData[0] && Object.keys(reportData[0]);
+  // console.log(dataKeys, 'test : dateKeys??');
 
-  function searchData(dataValues: any) {
-    return dataValues.filter((dataValue: any) =>
-      searchDataKeys.some((dataKey: any) => dataValue[dataKey].toString().toLowerCase().indexOf(query.toLowerCase()) > -1),
-    );
-  }
+  // function searchData(dataValues: any) {
+  //   console.log(dataValues, 'test : dataValeus');
+  //   return dataValues.filter((dataValue: any) =>
+  //     searchDataKeys.some((dataKey: any) => dataValue[dataKey].toString().toLowerCase().indexOf(query.toLowerCase()) > -1),
+  //   );
+  // }
 
   return (
     <>
@@ -43,7 +45,7 @@ const VideoPage = function ({ data }: Props) {
       <Input type="text" placeholder="검색할 값을 입력하세요" value={query} onChange={(e) => setQuery(e.target.value)} />
 
       <div className="md:flex flex-row">
-        {dataKeys &&
+        {/* {dataKeys &&
           dataKeys.map((dataKey, index) => (
             <Fragment key={index}>
               <Checkbox
@@ -56,10 +58,12 @@ const VideoPage = function ({ data }: Props) {
                 <Title level={5}>{dataKey}</Title>
               </Checkbox>
             </Fragment>
-          ))}
+          ))} */}
       </div>
 
-      <VideoList data={searchData(reportData)} />
+      <VideoList data={reportData} />
+
+      {/* <VideoList data={searchData(reportData)} /> */}
     </>
   );
 };
