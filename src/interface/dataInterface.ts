@@ -1,4 +1,9 @@
-export interface IDataProps {
+export interface IData {
+  key: number;
+  value: IDataValue;
+}
+
+export interface IDataValue {
   id: number;
   useremail: string;
   offender: 'Black Mann' | 'Black Women' | 'White Mann' | 'White Women' | 'Yellow Mann' | 'Yellow Women';
