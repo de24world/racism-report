@@ -5,6 +5,7 @@ import { ref, child, get } from 'firebase/database';
 
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
+import Detail from '../../src/components/Detail';
 
 interface Props {
   post: any;
@@ -18,6 +19,7 @@ const ListPage = ({ post }: Props) => {
     <>
       Dynamic ID Page <br />
       <p>id: {id}</p>
+      <Detail post={post} />
     </>
   );
 };
