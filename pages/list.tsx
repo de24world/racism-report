@@ -116,7 +116,8 @@ const ListPage = ({ reportData }: DataType) => {
 
   return (
     <>
-      List Page
+      List Page <br />
+      테이블 클릭 https://stackoverflow.com/questions/62786115/how-do-i-use-react-router-link-to-from-antd-table-column
       <Table columns={columns} dataSource={data} onChange={onChange} />;{/* <TableList /> */}
     </>
   );
