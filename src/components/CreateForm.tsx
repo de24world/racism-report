@@ -161,10 +161,10 @@ const CreateForm = ({ user }: Props) => {
             <Radio.Button value="1">1단계</Radio.Button>
             <Radio.Button value="2">2단계</Radio.Button>
             <Radio.Button value="3">3단계</Radio.Button>
+            <Tooltip title="1단계는 언어, 행동 / 2단계는 폭력 / 3단계는 살인, 성폭행 등 강력범죄" color="blue">
+              <InfoCircleOutlined style={{ fontSize: '1rem', paddingLeft: '0.5rem', verticalAlign: 'top', color: '#08c' }} />
+            </Tooltip>
           </Radio.Group>
-          <Tooltip title="1단계는 언어, 행동 / 2단계는 폭력 / 3단계는 살인, 성폭행 등 강력범죄" color="blue">
-            <InfoCircleOutlined style={{ fontSize: '1rem', paddingLeft: '0.5rem', verticalAlign: 'top', color: '#08c' }} />
-          </Tooltip>
         </Form.Item>
         <Form.Item name="description" label="설명">
           <Input />

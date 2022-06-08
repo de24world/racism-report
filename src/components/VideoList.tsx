@@ -26,12 +26,12 @@ function VideoList({ data }: Props): JSX.Element {
   return (
     <>
       <ul className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-        {Object.keys(data).map((dataKey, dataIndex) => (
+        {Object.keys(data).map((createdKey, dataIndex) => (
           <li className="p-1.5" key={dataIndex}>
             dataIndex : {dataIndex} <br />
-            dataKey : {dataKey} <br />
+            createdKey : {createdKey} <br />
             {/* data[dataKey].evidence : {data[dataKey].evidence} */}
-            <ReactPlayer url={data[dataKey].evidence} width="100%" height="100%" />
+            <ReactPlayer url={data[createdKey].evidence} width="100%" height="100%" />
           </li>
         ))}
       </ul>
