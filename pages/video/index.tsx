@@ -4,11 +4,11 @@ import { useState, Fragment } from 'react';
 import { Typography, Input, Checkbox } from 'antd';
 import { VideoCameraOutlined } from '@ant-design/icons';
 import VideoList from '../../src/components/VideoList';
-import { IDataProps } from '../../src/interface/dataInterface';
+import { IDataValue } from '../../src/interface/dataInterface';
 import { Value } from 'sass';
 
 interface Props {
-  data: IDataProps[];
+  data: IDataValue[];
 }
 
 const VideoPage = function ({ data }: Props) {
