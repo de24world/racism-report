@@ -6,14 +6,11 @@ export interface IData {
 export interface IDataValue {
   id: number;
   useremail: string;
-  offender: 'Black Mann' | 'Black Women' | 'White Mann' | 'White Women' | 'Yellow Mann' | 'Yellow Women';
-  victim: 'Black Mann' | 'Black Women' | 'White Mann' | 'White Women' | 'Yellow Mann' | 'Yellow Women';
+  offender: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
+  victim: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
   date: string;
   place: string;
-  // change to time type
-  // country: string;
-  // countryCode: string;
-  // city: string;
+
   evidence: string;
   occurDate: string;
   level: number;
