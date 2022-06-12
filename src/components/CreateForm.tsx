@@ -51,8 +51,9 @@ const CreateForm = ({ user }: Props) => {
     // e.preventDefault();
 
     const db = getDatabase();
-    const postListRef = ref(db, `reportDB/${Date.now()}`);
-    set(postListRef, {
+    const postListRef = ref(db, 'posts/');
+    push(postListRef, {
+      id: Date.now(),
       useremail: values.useremail,
       offender: values.offender,
       victim: values.victim,
@@ -62,11 +63,16 @@ const CreateForm = ({ user }: Props) => {
       level: values.level,
       description: values.description || null,
       submitTime: values.submitTime,
-    });
+    })
+      .then(() => {
+        message.success('Submit Success');
+      })
+      .catch((error) => {
+        // The write failed...
+      });
 
     // console.log(moment(values.occurDate).format('YYYY-MM'), 'values.occurDate');
 
-    message.success('Submit Success');
     form.resetFields();
   };
 
@@ -158,9 +164,9 @@ const CreateForm = ({ user }: Props) => {
         </Form.Item>
         <Form.Item label="level" name="level" rules={[{ required: true, message: 'Please select level!' }]}>
           <Radio.Group>
-            <Radio.Button value="1">1단계</Radio.Button>
-            <Radio.Button value="2">2단계</Radio.Button>
-            <Radio.Button value="3">3단계</Radio.Button>
+            <Radio.Button value={1}>1단계</Radio.Button>
+            <Radio.Button value={2}>2단계</Radio.Button>
+            <Radio.Button value={3}>3단계</Radio.Button>
             <Tooltip title="1단계는 언어, 행동 / 2단계는 폭력 / 3단계는 살인, 성폭행 등 강력범죄" color="blue">
               <InfoCircleOutlined style={{ fontSize: '1rem', paddingLeft: '0.5rem', verticalAlign: 'top', color: '#08c' }} />
             </Tooltip>

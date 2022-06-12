@@ -18,14 +18,14 @@ const ListPage = ({ post }: Props) => {
   return (
     <>
       Dynamic ID Page <br />
-      <p>id: {id}</p>
+      <p>Firebase key: {id}</p>
       <Detail post={post} />
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/reportDB/${context.params.id}.json`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts/${context.params.id}.json`);
   const post = await res.json();
 
   return {
