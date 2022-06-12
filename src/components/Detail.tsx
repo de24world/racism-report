@@ -27,9 +27,10 @@ function Detail({ post }: Props): JSX.Element {
         <p>offender : {post.offender} </p>
         <p>victim : {post.victim}</p>
         <p>place : {post.place}</p>
-        <p>data : {post.data}</p>
+        <p>occurDate : {post.occurDate}</p>
         <p>level : {post.level}</p>
         <p>description : {post.description}</p>
+        <p>submit : {post.submitTime}</p>
       </Card>
     </>
   );
