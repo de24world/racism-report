@@ -38,7 +38,7 @@ const ListPage = ({ posts }: Props) => {
 export async function getStaticPaths() {
   return {
     paths: [{ params: { id: '1655017009079' } }, { params: { id: '1655017106681' } }, { params: { id: '1655074611202' } }],
-    fallback: true,
+    fallback: 'blocking',
   };
 }
 
