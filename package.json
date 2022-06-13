@@ -26,6 +26,7 @@
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.5.0",
     "firebase": "^9.6.8",
+    "moment": "^2.29.3",
     "postcss": "^8.4.8",
     "react-country-flag": "^3.0.2",
     "react-player": "^2.9.0",

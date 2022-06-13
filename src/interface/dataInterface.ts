@@ -1,13 +1,26 @@
-export interface IDataProps {
+export interface IData {
+  key: number;
+  value: IDataValue;
+}
+
+export interface IDataValue {
   id: number;
-  offender: string;
-  victim: string;
+  useremail: string;
+  offender: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
+  victim: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
   date: string;
-  // change to time type
-  country: string;
-  countryCode: string;
-  city: string;
+  place: string;
+
   evidence: string;
+  occurDate: string;
   level: number;
   createdDate?: string;
+  description?: string;
+  submitTime: string;
+}
+
+export interface IUser {
+  displayName: any;
+  email: string;
+  uid: string;
 }

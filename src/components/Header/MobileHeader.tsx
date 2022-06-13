@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Layout, Button, Drawer, Menu, Dropdown } from 'antd';
 import { MenuOutlined, TranslationOutlined } from '@ant-design/icons';
-import MobileNavigation from '../Navigation/MobileNavigation';
+import MobileNavigation from './Navigation/MobileNavigation';
 
 function MobileHeader() {
   const { Header } = Layout;
   const menu = (
     <Menu theme="dark">
-      <Menu.Item>
+      <Menu.Item key="english">
         <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
           English
         </a>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key="korean">
         <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
           Korean
         </a>
@@ -48,7 +48,7 @@ function MobileHeader() {
       </Header>
 
       <Drawer visible={isVisible} onClose={closeDrawer} placement="left" width="80%" title="My Drawer">
-        <MobileNavigation />
+        <MobileNavigation closeDrawer={closeDrawer} />
       </Drawer>
     </>
   );
