@@ -14,8 +14,8 @@
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.19.1",
     "next": "12.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "sass": "^1.49.9"
   },
   "devDependencies": {
