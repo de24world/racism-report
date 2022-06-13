@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
+// import { GetServerSideProps, GetS } from 'next';
 
 import { ref, child, get } from 'firebase/database';
 
@@ -14,6 +14,10 @@ interface Props {
 const ListPage = ({ posts }: Props) => {
   const router = useRouter();
   const { id } = router.query;
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   // console.log(popostst, 'post??');
   const postVideoValue = Object.values(posts);
   // console.log(postVideoValue, 'postVideoValue??');
@@ -31,7 +35,14 @@ const ListPage = ({ posts }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { id: '1655017009079' } }, { params: { id: '1655017106681' } }, { params: { id: '1655074611202' } }],
+    fallback: true,
+  };
+}
+
+export const getStaticProps = async (context) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
   // This is for key
   // const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts/${context.params.id}.json`);
