@@ -12,25 +12,26 @@ import { Countries } from '../shared/model/country';
 import { FilterColumnsPeople } from '../shared/model/list';
 
 interface Props {
-  reportData: IDataValue;
+  postList: IDataValue;
   // key: React.Key;
   // name: string;
   // age: number;
   // address: string;
 }
 
-const ListPage = ({ reportData }: Props) => {
+const ListPage = ({ postList }: Props) => {
   const router = useRouter();
+  console.log(postList, 'test : data in List');
 
-  console.log(reportData, 'test : data in List');
-  const dataKeys = Object.keys(reportData);
+  const dataKeys = Object.keys(postList);
   // console.log(dataKeys, 'test : dataKeys in list Page');
 
-  const dataEntries = Object.entries(reportData);
+  const dataEntries = Object.entries(postList);
   // console.log(dataEntries, 'test :dataEntries in list Page');
 
-  const dataValues = Object.values(reportData);
-  console.log(dataValues, 'test : dataValues in list Page');
+  const dataValues = Object.values(postList);
+  // console.log(dataValues, 'test : dataValues in list Page');
+  // console.log(delete reportData[key]);
 
   const columns: ColumnsType<Props> = [
     {
@@ -39,7 +40,7 @@ const ListPage = ({ reportData }: Props) => {
       filters: FilterColumnsPeople,
       filterMode: 'tree',
       filterSearch: true,
-      onFilter: (value: string, record) => record.offender.includes(value),
+      onFilter: (value: any, record: any) => record.offender.includes(value),
       // width: '30%',
     },
     {
@@ -162,16 +163,17 @@ const ListPage = ({ reportData }: Props) => {
       - 테이블 클릭 https://stackoverflow.com/questions/62786115/how-do-i-use-react-router-link-to-from-antd-table-column <br />
       - List 완성 <br />
       - Filter 완성 <br />
-      - key 문제 해결 <br />
       - Pagination <br />
       - 모든 colums 한 곳에 몰아넣기
       <br />
       <Table
+        rowKey={(record) => record.id}
         columns={columns}
         dataSource={dataList}
         onChange={onChange}
-        onRow={(i) => ({
-          onClick: (e) => router.push(`/video/${dataKeys}`),
+        onRow={(record, rowIndex) => ({
+          // onClick: (e) => console.log(record.id, ' record.id'),
+          onClick: (e) => router.push(`/video/${record.id}`),
         })}
       />
       ;{/* <TableList /> */}
@@ -183,11 +185,11 @@ const ListPage = ({ reportData }: Props) => {
 // https://ashleemboyer.com/blog/nextjs-firebase-blog-03
 export async function getStaticProps({}) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
-  const reportData = await res.json();
+  const postList = await res.json();
 
   return {
     props: {
-      reportData,
+      postList,
       // ...(await serverSideTranslations(locale, ['common'])),
     },
   };

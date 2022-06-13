@@ -36,8 +36,8 @@ const VideoPage = function ({ data }: Props) {
   // const dataEntries = Object.entries(data);
   // console.log(dataEntries, 'test :dataEntries in video Page');
 
-  // const dataValues1 = Object.values(data);
-  // console.log(dataValues1, 'test : dataValues1 in video Page');
+  const dataValues = Object.values(data);
+  console.log(dataValues, 'test : dataValues1 in video Page');
 
   return (
     <>
