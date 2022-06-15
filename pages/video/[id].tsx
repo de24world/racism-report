@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 // import { GetServerSideProps, GetS } from 'next';
 
-import { ref, child, get } from 'firebase/database';
+import { getDatabase, ref, child, get, onValue } from 'firebase/database';
 
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
@@ -24,6 +24,27 @@ const ListPage = ({ posts }: Props) => {
   const findPost = postVideoValue.find((post) => post.id == id);
   // console.log(findPost, 'findPost??');
 
+  //firebase.google.com/docs/database/web/read-and-write
+  // const db = getDatabase();
+  // const starCountRef = ref(db, 'posts/');
+  // onValue(starCountRef, (snapshot) => {
+  //   const data = snapshot.val();
+  //   console.log(data, 'data???');
+  // });
+
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `posts/`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val(), 'snapshot???');
+      } else {
+        console.log('No data available');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
   return (
     <>
       Dynamic ID Page <br />
@@ -35,12 +56,12 @@ const ListPage = ({ posts }: Props) => {
   );
 };
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   return {
     paths: [{ params: { id: '1655017009079' } }, { params: { id: '1655017106681' } }, { params: { id: '1655074611202' } }],
     fallback: 'blocking',
   };
-}
+};
 
 export const getStaticProps = async (context) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
