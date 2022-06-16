@@ -8,9 +8,7 @@ export interface IDataValue {
   useremail: string;
   offender: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
   victim: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
-  date: string;
   place: string;
-
   evidence: string;
   occurDate: string;
   level: number;

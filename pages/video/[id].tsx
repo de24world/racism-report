@@ -32,11 +32,18 @@ const ListPage = ({ posts }: Props) => {
   //   console.log(data, 'data???');
   // });
 
+  // https://firebase.google.com/docs/reference/node/firebase.database.DataSnapshot#foreach
   const dbRef = ref(getDatabase());
   get(child(dbRef, `posts/`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val(), 'snapshot???');
+        console.log(snapshot.key, 'snapshot.key??');
+        console.log(snapshot.val(), 'snapshot.val()??');
+        snapshot.forEach(function (childSnapshot) {
+          console.log(childSnapshot.key, 'test : childSnapshot.key');
+          console.log(childSnapshot.val(), 'test : childSnapshot.val()');
+          console.log(childSnapshot.val().id, 'test : childSnapshot.val().id');
+        });
       } else {
         console.log('No data available');
       }
