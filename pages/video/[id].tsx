@@ -37,11 +37,11 @@ const ListPage = ({ posts }: Props) => {
   get(child(dbRef, `posts/`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.key, 'snapshot.key??');
-        console.log(snapshot.val(), 'snapshot.val()??');
-        snapshot.forEach(function (childSnapshot) {
-          console.log(childSnapshot.key, 'test : childSnapshot.key');
-          console.log(childSnapshot.val(), 'test : childSnapshot.val()');
+        // console.log(snapshot.key, 'snapshot.key??');
+        // console.log(snapshot.val(), 'snapshot.val()??');
+        snapshot.forEach((childSnapshot) => {
+          // console.log(childSnapshot.key, 'test : childSnapshot.key');
+          // console.log(childSnapshot.val(), 'test : childSnapshot.val()');
           console.log(childSnapshot.val().id, 'test : childSnapshot.val().id');
         });
       } else {

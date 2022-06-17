@@ -5,17 +5,18 @@ import { Typography, Input, Checkbox } from 'antd';
 import { VideoCameraOutlined } from '@ant-design/icons';
 import VideoList from '../../src/components/VideoList';
 import { IDataValue } from '../../src/interface/dataInterface';
-import { Value } from 'sass';
+import { getDatabase, ref, child, get, onValue } from 'firebase/database';
 
 interface Props {
-  data: IDataValue[];
+  data: IDataValue;
+  videoPosts: IDataValue[];
 }
 
-const VideoPage = function ({ data }: Props) {
+const VideoPage = function ({ data, videoPosts }: Props) {
   const reportData = data;
   const { Title, Paragraph, Text, Link } = Typography;
 
-  console.log(data, 'data in Video Page');
+  console.log(videoPosts, 'videoPosts in Video Page');
 
   // serach & filter
   const [query, setQuery] = useState('');
@@ -35,9 +36,6 @@ const VideoPage = function ({ data }: Props) {
 
   // const dataEntries = Object.entries(data);
   // console.log(dataEntries, 'test :dataEntries in video Page');
-
-  const dataValues = Object.values(data);
-  console.log(dataValues, 'test : dataValues1 in video Page');
 
   return (
     <>
@@ -89,12 +87,30 @@ const VideoPage = function ({ data }: Props) {
 };
 
 export async function getStaticProps({}) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
-  const data = await res.json();
+  const dbRef = ref(getDatabase());
+  const data = await get(child(dbRef, `posts/`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.key, 'snapshot.key??');
+        console.log(snapshot.val(), 'snapshot.val() in video/index??');
+        return snapshot.val();
+      } else {
+        console.log('No data available in video/index');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  const videoPosts = Object.values(data);
+
+  // const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
+  // const data = await res.json();
 
   return {
     props: {
       data,
+      videoPosts,
       // ...(await serverSideTranslations(locale, ['common'])),
     },
   };

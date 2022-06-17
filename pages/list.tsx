@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { realtimeDB } from '../firebase';
 import TableList from '../src/components/TableList';
-import { ref, child, get } from 'firebase/database';
+import { getDatabase, ref, child, get, onValue } from 'firebase/database';
 
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
@@ -12,7 +12,7 @@ import { Countries } from '../shared/model/country';
 import { FilterColumnsPeople } from '../shared/model/list';
 
 interface Props {
-  postList: IDataValue;
+  postList: IDataValue[];
   // key: React.Key;
   // name: string;
   // age: number;
@@ -23,13 +23,13 @@ const ListPage = ({ postList }: Props) => {
   const router = useRouter();
   console.log(postList, 'test : data in List');
 
-  const dataKeys = Object.keys(postList);
+  // const dataKeys = Object.keys(postList);
   // console.log(dataKeys, 'test : dataKeys in list Page');
 
-  const dataEntries = Object.entries(postList);
+  // const dataEntries = Object.entries(postList);
   // console.log(dataEntries, 'test :dataEntries in list Page');
 
-  const dataValues = Object.values(postList);
+  // const dataValues = Object.values(postList);
   // console.log(dataValues, 'test : dataValues in list Page');
   // console.log(delete reportData[key]);
 
@@ -119,7 +119,7 @@ const ListPage = ({ postList }: Props) => {
   ];
 
   //  Key Error
-  const dataList: Props[] = dataValues;
+  const dataList: Props[] = postList;
 
   // const dataList: IData[] = [
   //   {
@@ -160,11 +160,10 @@ const ListPage = ({ postList }: Props) => {
     <>
       List Page <br />
       Todo <br />
-      - 테이블 클릭 https://stackoverflow.com/questions/62786115/how-do-i-use-react-router-link-to-from-antd-table-column <br />
-      - List 완성 <br />
       - Filter 완성 <br />
       - Pagination <br />
-      - 모든 colums 한 곳에 몰아넣기
+      - 모든 colums 한 곳에 몰아넣기 <br />
+      - List 완성 <br />
       <br />
       <Table
         rowKey={(record) => record.id}
@@ -184,8 +183,25 @@ const ListPage = ({ postList }: Props) => {
 // https://firebase.google.com/docs/database/web/read-and-write#read_data
 // https://ashleemboyer.com/blog/nextjs-firebase-blog-03
 export async function getStaticProps({}) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
-  const postList = await res.json();
+  // const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
+  // const postList = await res.json();
+
+  const dbRef = ref(getDatabase());
+  const data = await get(child(dbRef, `posts/`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.key, 'snapshot.key??');
+        console.log(snapshot.val(), 'snapshot.val() in video/index??');
+        return snapshot.val();
+      } else {
+        console.log('No data available in video/index');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  const postList = Object.values(data);
 
   return {
     props: {
