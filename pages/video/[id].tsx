@@ -17,11 +17,7 @@ const ListPage = ({ posts }: Props) => {
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
-
-  // console.log(popostst, 'post??');
-  const postVideoValue = Object.values(posts);
-  // console.log(postVideoValue, 'postVideoValue??');
-  const findPost = postVideoValue.find((post) => post.id == id);
+  const findPost = posts.find((post) => post.id == id);
   // console.log(findPost, 'findPost??');
 
   //firebase.google.com/docs/database/web/read-and-write
@@ -70,12 +66,23 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
-  // This is for key
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts/${context.params.id}.json`);
+export const getStaticProps = async () => {
+  const dbRef = ref(getDatabase());
+  const data = await get(child(dbRef, `posts/`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        // console.log(snapshot.key, 'snapshot.key??');
+        console.log(snapshot.val(), 'snapshot.val() in video/[id]??');
+        return snapshot.val();
+      } else {
+        console.log('No data available in video/index');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
-  const posts = await res.json();
+  const posts = Object.values(data);
 
   return {
     props: {
