@@ -21,17 +21,6 @@ interface Props {
 
 const ListPage = ({ postList }: Props) => {
   const router = useRouter();
-  console.log(postList, 'test : data in List');
-
-  // const dataKeys = Object.keys(postList);
-  // console.log(dataKeys, 'test : dataKeys in list Page');
-
-  // const dataEntries = Object.entries(postList);
-  // console.log(dataEntries, 'test :dataEntries in list Page');
-
-  // const dataValues = Object.values(postList);
-  // console.log(dataValues, 'test : dataValues in list Page');
-  // console.log(delete reportData[key]);
 
   const columns: ColumnsType<Props> = [
     {
@@ -180,21 +169,15 @@ const ListPage = ({ postList }: Props) => {
   );
 };
 
-// https://firebase.google.com/docs/database/web/read-and-write#read_data
-// https://ashleemboyer.com/blog/nextjs-firebase-blog-03
 export async function getStaticProps({}) {
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
-  // const postList = await res.json();
-
   const dbRef = ref(getDatabase());
   const data = await get(child(dbRef, `posts/`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        // console.log(snapshot.key, 'snapshot.key??');
-        console.log(snapshot.val(), 'snapshot.val() in video/index??');
+        console.log(snapshot.val(), 'snapshot.val() in list page??');
         return snapshot.val();
       } else {
-        console.log('No data available in video/index');
+        console.log('No data available in list pagex');
       }
     })
     .catch((error) => {
