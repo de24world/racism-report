@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-// import { GetServerSideProps, GetS } from 'next';
+import { GetServerSideProps } from 'next';
 
 import { getDatabase, ref, child, get, onValue } from 'firebase/database';
 
@@ -59,28 +59,10 @@ const ListPage = ({ posts }: Props) => {
   );
 };
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [{ params: { id: '1655017009079' } }, { params: { id: '1655017106681' } }, { params: { id: '1655074611202' } }],
-    fallback: 'blocking',
-  };
-};
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/posts.json`);
 
-export const getStaticProps = async () => {
-  const dbRef = ref(getDatabase());
-  const data = await get(child(dbRef, `posts/`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        // console.log(snapshot.key, 'snapshot.key??');
-        console.log(snapshot.val(), 'snapshot.val() in video/[id]??');
-        return snapshot.val();
-      } else {
-        console.log('No data available in video/index');
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  const data = await res.json();
 
   const posts = Object.values(data);
 
@@ -90,5 +72,37 @@ export const getStaticProps = async () => {
     },
   };
 };
+
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [{ params: { id: '1655017009079' } }, { params: { id: '1655017106681' } }, { params: { id: '1655074611202' } }],
+//     fallback: 'blocking',
+//   };
+// };
+
+// export const getStaticProps = async () => {
+//   const dbRef = ref(getDatabase());
+//   const data = await get(child(dbRef, `posts/`))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         // console.log(snapshot.key, 'snapshot.key??');
+//         console.log(snapshot.val(), 'snapshot.val() in video/[id]??');
+//         return snapshot.val();
+//       } else {
+//         console.log('No data available in video/index');
+//       }
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+
+//   const posts = Object.values(data);
+
+// return {
+//   props: {
+//     posts,
+//   },
+// };
+// };
 
 export default ListPage;
