@@ -9,7 +9,7 @@ import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
 import { IData, IDataValue } from '../src/interface/dataInterface';
 import { Countries } from '../shared/model/country';
-import { FilterColumnsPeople } from '../shared/model/list';
+import { FilterColumnsPeople } from '../shared/model/filterList';
 
 interface Props {
   postList: IDataValue[];
@@ -21,8 +21,11 @@ interface Props {
 
 const ListPage = ({ postList }: Props) => {
   const router = useRouter();
+  console.log(postList, 'postList in list Page');
+  console.log(FilterColumnsPeople, 'FilterColumnsPeople');
 
-  const columns: ColumnsType<Props> = [
+  // const columns: ColumnsType<Props> = [
+  const columns = [
     {
       title: 'Offender',
       dataIndex: 'offender',
@@ -38,7 +41,7 @@ const ListPage = ({ postList }: Props) => {
       filters: FilterColumnsPeople,
       filterMode: 'tree',
       filterSearch: true,
-      onFilter: (value: string, record) => record.victim.includes(value),
+      onFilter: (value: any, record) => record.victim.includes(value),
       // width: '30%',
     },
     {
@@ -76,8 +79,21 @@ const ListPage = ({ postList }: Props) => {
       sorter: (a, b) => a.level - b.level,
     },
     {
-      title: 'Date',
+      title: 'occur Date',
       dataIndex: 'occurDate',
+      filters: [
+        {
+          text: 'United States of America (the)',
+          value: 'United States of America (the)',
+        },
+      ],
+      onFilter: (value: string, record) => record.occurDate.includes(value),
+      // filterSearch: true,
+      // width: '40%',
+    },
+    {
+      title: 'submit Time',
+      dataIndex: 'submitTime',
       filters: [
         {
           text: 'United States of America (the)',
@@ -108,7 +124,8 @@ const ListPage = ({ postList }: Props) => {
   ];
 
   //  Key Error
-  const dataList: Props[] = postList;
+  const dataList = postList;
+  // const dataList: Props[] = postList;
 
   // const dataList: IData[] = [
   //   {
@@ -159,7 +176,7 @@ const ListPage = ({ postList }: Props) => {
         columns={columns}
         dataSource={dataList}
         onChange={onChange}
-        onRow={(record, rowIndex) => ({
+        onRow={(record) => ({
           // onClick: (e) => console.log(record.id, ' record.id'),
           onClick: (e) => router.push(`/video/${record.id}`),
         })}
