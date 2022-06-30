@@ -19,20 +19,37 @@ interface Props {
   // address: string;
 }
 
+interface DataType {
+  id: number;
+  useremail: string;
+  offender: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
+  victim: 'Black Mann' | 'Black Women' | 'Black Group' | 'White Mann' | 'White Women' | 'White Group' | 'Yellow Mann' | 'Yellow Women' | 'Yellow Group';
+  place: string;
+  evidence: string;
+  occurDate: string;
+  level: number;
+  createdDate?: string;
+  description?: string;
+  submitTime: string;
+  // key: React.Key;
+  // name: string;
+  // age: number;
+  // address: string;
+}
+
 const ListPage = ({ postList }: Props) => {
   const router = useRouter();
   console.log(postList, 'postList in list Page');
-  console.log(FilterColumnsPeople, 'FilterColumnsPeople');
+  // console.log(FilterColumnsPeople, 'FilterColumnsPeople');
 
-  // const columns: ColumnsType<Props> = [
-  const columns = [
+  const columns: ColumnsType<DataType> = [
     {
       title: 'Offender',
       dataIndex: 'offender',
       filters: FilterColumnsPeople,
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value: any, record: any) => record.offender.includes(value),
+      // filterMode: 'tree',
+      // filterSearch: true,
+      onFilter: (value: any, record: any) => record.offender.startsWith(value),
       // width: '30%',
     },
     {
@@ -158,7 +175,7 @@ const ListPage = ({ postList }: Props) => {
   //   },
   // ];
 
-  const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+  const onTableChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
@@ -175,7 +192,7 @@ const ListPage = ({ postList }: Props) => {
         rowKey={(record) => record.id}
         columns={columns}
         dataSource={dataList}
-        onChange={onChange}
+        onChange={onTableChange}
         onRow={(record) => ({
           // onClick: (e) => console.log(record.id, ' record.id'),
           onClick: (e) => router.push(`/video/${record.id}`),
