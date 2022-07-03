@@ -56,9 +56,9 @@ const ListPage = ({ postList }: Props) => {
       title: 'Victim',
       dataIndex: 'victim',
       filters: FilterColumnsPeople,
-      filterMode: 'tree',
-      filterSearch: true,
-      onFilter: (value: any, record) => record.victim.includes(value),
+      // filterMode: 'tree',
+      // filterSearch: true,
+      onFilter: (value: any, record) => record.victim.indexOf(value),
       // width: '30%',
     },
     {
@@ -88,12 +88,12 @@ const ListPage = ({ postList }: Props) => {
         },
         {
           text: '3',
-          value: '31',
+          value: '3',
         },
       ],
       onFilter: (value: string, record) => record.level.includes(value),
-      filterSearch: true,
       sorter: (a, b) => a.level - b.level,
+      sortDirections: ['ascend', 'descend'],
     },
     {
       title: 'occur Date',
