@@ -48,16 +48,11 @@ function DesktopHeader({}: Props) {
           </Link>
         </Menu.Item>
 
-        <SubMenu key="SubMenu2" icon={<BarChartOutlined />} title="Chart">
-          <Menu.ItemGroup title="Where">
-            <Menu.Item key="setting:1">Country</Menu.Item>
-            <Menu.Item key="setting:2">City</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Who">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
+        <Menu.Item key="chart" icon={<BarChartOutlined />}>
+          <Link href="/chart">
+            <a>Chart</a>
+          </Link>
+        </Menu.Item>
 
         <Menu.Item key="contact" icon={<MailOutlined />} title="Contacnt">
           <Link href="/contact">
