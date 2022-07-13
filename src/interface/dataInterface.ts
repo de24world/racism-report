@@ -15,6 +15,7 @@ export interface IDataValue {
   createdDate?: string;
   description?: string;
   submitTime: string;
+  like?: string;
 }
 
 export interface IUser {

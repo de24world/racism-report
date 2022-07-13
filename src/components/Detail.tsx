@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import ReactPlayer from 'react-player';
-import { Card, Row, Col, Pagination } from 'antd';
+import { Card, Row, Col, Pagination, Statistic } from 'antd';
 import { IData } from '../interface/dataInterface';
+import { LikeOutlined } from '@ant-design/icons';
 
 interface Props {
   post: any;
@@ -31,6 +32,8 @@ function Detail({ post }: Props): JSX.Element {
         <p>level : {post.level}</p>
         <p>description : {post.description}</p>
         <p>submit : {post.submitTime}</p>
+
+        <Statistic title="Feedback" value={post.like} prefix={<LikeOutlined />} />
       </Card>
     </>
   );
